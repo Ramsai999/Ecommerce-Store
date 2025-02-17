@@ -5,7 +5,6 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.springframework.context.annotation.EnableMBeanExport;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -38,11 +37,12 @@ public class User {
 
     @NotBlank
     @Size(max=120)
+    @Column(name = "password")
     private String password;
 
-    public User(String email, String userName, String password) {
-        this.email = email;
+    public User(String userName, String email, String password) {
         this.userName = userName;
+        this.email = email;
         this.password = password;
     }
 
@@ -55,7 +55,7 @@ public class User {
 
     @Getter
     @Setter
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany ( cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "user_address",
                 joinColumns = @JoinColumn(name = "user_id"),
                 inverseJoinColumns = @JoinColumn(name = "address_id"))

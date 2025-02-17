@@ -24,4 +24,7 @@ public class Role {
     private AppRole roleName;
 
 
+    public Role(AppRole roleName) {
+        this.roleName = roleName;
+    }
 }
