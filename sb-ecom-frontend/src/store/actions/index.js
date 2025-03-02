@@ -1,27 +1,28 @@
 import  api  from '../../api/api';
 
-export const fetchProducts = () => async (dispatch) => {
+export const fetchProducts = (queryString) => async (dispatch) => {
     try {
-
-        dispatch({ type: 'IS_FETCHING' });
-        const {data} = await api.get(`/public/products`);
-        dispatch({ 
-            type: 'FETCH_PRODUCTS', 
+        dispatch({ type: "IS_FETCHING" });
+        const { data } = await api.get(`/public/products?${queryString}`);
+        dispatch({
+            type: "FETCH_PRODUCTS",
             payload: data.content,
-            pageNumber : data.pageNumber,
-            pageSize : data.pageSize,
-            totalPages : data.totalPages,
-            totalElements : data.totalElements,
-            lastPage : data.lastPage,    
+            pageNumber: data.pageNumber,
+            pageSize: data.pageSize,
+            totalElements: data.totalElements,
+            totalPages: data.totalPages,
+            lastPage: data.lastPage,
         });
-        dispatch({ type: 'IS_SUCCESS' });
+        dispatch({ type: "IS_SUCCESS" });
     } catch (error) {
         console.log(error);
-        dispatch({ type : "IS_ERROR",
-            payload : error?.response?.data?.message || "Failed to fetch Products",
+        dispatch({ 
+            type: "IS_ERROR",
+            payload: error?.response?.data?.message || "Failed to fetch products",
          });
     }
 };
+
 
 export const fetchCategories = () => async (dispatch) => {
     try {
@@ -36,7 +37,7 @@ export const fetchCategories = () => async (dispatch) => {
             totalPages: data.totalPages,
             lastPage: data.lastPage,
         });
-        dispatch({ type: "CATEGORY_SUCCESS" });
+        dispatch({ type: "IS_ERROR" });
     } catch (error) {
         console.log(error);
         dispatch({
