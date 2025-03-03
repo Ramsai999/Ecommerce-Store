@@ -5,8 +5,7 @@ import ProductCard from "../shared/ProductCard";
 import Loader from "../shared/Loader";
 import { FaExclamationTriangle } from "react-icons/fa";
 import { fetchProducts } from "../../store/actions";
-import useProductFilter from "../hooks/useProductFilter"; // Assuming this is the path
-import { Button } from "@mui/material";
+
 
 const Home = () => {
     const dispatch = useDispatch();

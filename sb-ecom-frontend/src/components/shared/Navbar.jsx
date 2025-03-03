@@ -7,9 +7,12 @@ import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import UserMenu from "../UserMenu";
 
+
 const Navbar = () => {
     const path = useLocation().pathname;
     const [navbarOpen, setNavbarOpen] = useState(false);
+    const { cart } = useSelector((state) => state.carts);
+    
 
     
     return (
@@ -60,19 +63,45 @@ const Navbar = () => {
                    </Link> 
                 </li>
 
-                
+                <li className="font-[500] transition-all duration-150">
+                   <Link className={`${
+                    path === "/cart" ? "text-black font-bold" : "text-gray-600"
+                   }`}
+                    to="/cart">
+                        <Badge
+                            showZero
+                            badgeContent={cart?.length || 0}
+                            color="primary"
+                            overlap="circular"
+                            anchorOrigin={{ vertical: 'top', horizontal: 'right', }}>
+                                <FaShoppingCart size={25} />
+                        </Badge>
+                   </Link> 
+                </li>
+
+                <li className="font-[500] transition-all duration-150">
+                   <Link className="flex items-center space-x-2 px-4 py-[6px] 
+                            bg-gradient-to-r from-purple-600 to-red-500 
+                            text-white font-semibold rounded-md shadow-lg 
+                            hover:from-purple-500 hover:to-red-400 transition 
+                            duration-300 ease-in-out transform "
+                    to="/login">
+                        <FaSignInAlt />
+                        <span>Login</span>
+                   </Link> 
+                </li>
 
                 
-                
+
             </ul>
 
             <button
                 onClick={() => setNavbarOpen(!navbarOpen)}
                 className="sm:hidden flex items-center sm:mt-0 mt-2">
                     {navbarOpen ? (
-                        <RxCross2 className="text-white text-3xl" />
+                        <RxCross2 className="text-black text-3xl" />
                     ) : (
-                        <IoIosMenu className="text-white text-3xl" />
+                        <IoIosMenu className="text-black text-3xl" />
                     )}
             </button>
             </div>
