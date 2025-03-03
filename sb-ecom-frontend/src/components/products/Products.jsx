@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchCategories } from "../../store/actions/index.js";
 import Filter from "./Filter";
-import useProductFilter from "../useProductFilter.jsx";
+import useProductFilter from "../hooks/useProductFilter.jsx";
 import Loader from "../shared/Loader.jsx";
 import Paginations from "../shared/Paginations.jsx";
 
