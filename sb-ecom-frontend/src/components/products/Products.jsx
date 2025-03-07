@@ -7,6 +7,7 @@ import Filter from "./Filter";
 import useProductFilter from "../hooks/useProductFilter.jsx";
 import Loader from "../shared/Loader.jsx";
 import Paginations from "../shared/Paginations.jsx";
+import React from "react";
 
 const Products = () => {
     const { isLoading, errorMessage } = useSelector(

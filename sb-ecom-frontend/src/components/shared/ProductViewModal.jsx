@@ -3,6 +3,7 @@ import { Divider } from '@mui/material';
 import { useState } from 'react'
 import Status from './Status';
 import { MdClose, MdDone } from 'react-icons/md';
+import React from 'react';
 
 function ProductViewModal({open, setOpen, product, isAvailable}) {
   

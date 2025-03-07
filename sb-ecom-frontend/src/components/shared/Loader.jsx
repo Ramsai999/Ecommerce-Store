@@ -1,16 +1,15 @@
-import { PuffLoader } from "react-spinners";
+import { CircularProgress } from "@mui/material";
+import React from "react";
 
-const Loader = ({ text = "Please wait...", size = 80, color = "#e11d48" }) => {
+const Loader = ({ text = "Loading, please wait..." }) => {
     return (
-        <div className="flex justify-center items-center w-full h-screen bg-white dark:bg-gray-900 transition-all">
-            <div className="flex flex-col items-center gap-3 animate-fadeIn">
-                <PuffLoader color={color} size={size} aria-label="Loading..." />
-                <p className="text-gray-800 dark:text-gray-300 text-lg font-medium">{text}</p>
+        <div className="flex justify-center items-center w-full h-screen bg-white">
+            <div className="flex flex-col items-center gap-3">
+                <CircularProgress size={50} thickness={4} color="inherit" />
+                <p className="text-gray-700 text-lg font-medium">{text}</p>
             </div>
         </div>
     );
 };
-
-
 
 export default Loader;

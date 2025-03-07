@@ -6,6 +6,7 @@ import { decreaseCartQuantity, increaseCartQuantity, removeFromCart } from "../.
 import toast from "react-hot-toast";
 import { formatPrice } from "../../utils/formatPrice.js";
 import truncateText from "../../utils/truncateText";
+import React from "react";
 
 const ItemContent = ({
     productId,

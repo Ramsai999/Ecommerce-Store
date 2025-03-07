@@ -5,6 +5,8 @@ import { FaShoppingCart } from 'react-icons/fa';
 import { IoExitOutline } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import BackDrop from './BackDrop';
+import { logOutUser } from '../store/actions';
 
 const UserMenu = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -59,14 +61,14 @@ const UserMenu = () => {
                 onClick={handleClose}>
                     <FaShoppingCart className='text-xl'/>
                     <span className='font-semibold'>
-                        Order
+                        Orders
                     </span>
             </MenuItem>
           </Link>
 
             <MenuItem className="flex gap-2" 
                 onClick={logOutHandler}>
-                    <div className='font-semibold w-full flex gap-2 items-center bg-button-gradient px-4 py-1 text-white rounded-sm'>
+                    <div className='font-semibold w-full flex gap-2 items-center bg-button-gradient px-4 py-1 text-black rounded-sm'>
                     <IoExitOutline className='text-xl'/>
                     <span className='font-bold text-[16px] mt-1'>
                         LogOut

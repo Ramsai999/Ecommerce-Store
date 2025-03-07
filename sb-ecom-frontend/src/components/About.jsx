@@ -1,80 +1,56 @@
-import ProductCard from "./shared/ProductCard";
-
-const products = [
-    {
-        image: "https://embarkx.com/sample/placeholder.png",
-        productName: "iPhone 13 Pro Max",
-        description:
-          "The iPhone 13 Pro Max offers exceptional performance with its A15 Bionic chip, stunning Super Retina XDR display, and advanced camera features for breathtaking photos.",
-        specialPrice: 720,
-        price: 780,
-      },
-      {
-        image: "https://embarkx.com/sample/placeholder.png",
-        productName: "Samsung Galaxy S21",
-        description:
-          "Experience the brilliance of the Samsung Galaxy S21 with its vibrant AMOLED display, powerful camera, and sleek design that fits perfectly in your hand.",
-        specialPrice: 699,
-        price: 799,
-      },
-      {
-        image: "https://embarkx.com/sample/placeholder.png",
-        productName: "Google Pixel 6",
-        description:
-          "The Google Pixel 6 boasts cutting-edge AI features, exceptional photo quality, and a stunning display, making it a perfect choice for Android enthusiasts.",
-        price: 599,
-        specialPrice: 400,
-      }
-];
+import React from "react";
+import { FaBuilding, FaMapMarkerAlt, FaRegHandshake } from "react-icons/fa";
 
 const About = () => {
-    return (
-        <div className="max-w-7xl mx-auto px-4 py-8">
-            <h1 className="text-slate-800 text-4xl font-bold text-center mb-12">
-                About Us
-            </h1>
-           <div className="flex flex-col lg:flex-row justify-between items-center mb-12">
-                <div className="w-full md:w-1/2 text-center md:text-left">
-                    <p className="text-lg mb-4">
-                        Welcome to our e-commerce store! We are dedicated to providing the
-                        best products and services to our customers. Our mission is to offer
-                        a seamless shopping experience while ensuring the highest quality of
-                        our offerings.
-                    </p>
-                </div>
-
-                <div className="w-full md:w-1/2 mb-6 md:mb-0">
-                    <img
-                        src="https://embarkx.com/sample/placeholder.png"
-                        alt="About Us"
-                        className="w-full h-auto rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105"></img>
-                </div>
-           </div>
-
-
-           <div className="py-7 space-y-8">
-            <h1 className="text-slate-800 text-4xl font-bold text-center">
-                Our Products
-            </h1>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-               {products.map((product, index) => (
-                <ProductCard 
-                    key={index}
-                    image={product.image}
-                    productName={product.productName}
-                    description={product.description}
-                    specialPrice={product.specialPrice}
-                    price={product.price}
-                    about
-                />
-               ))
-               }
-                
-
-            </div>
-           </div>
+  return (
+    <div className="max-w-7xl mx-auto px-6 py-12">
+      <h1 className="text-gray-800 text-4xl font-bold text-center mb-8">About Chandhana Bros</h1>
+      
+      {/* Company Overview */}
+      <div className="flex flex-col lg:flex-row justify-between items-center mb-12 gap-x-12">
+        <div className="w-full md:w-1/2 mb-6 md:mb-0 md:mr-8">
+          <img
+            src="https://embarkx.com/sample/placeholder.png"
+            alt="Company Building"
+            className="w-full h-auto rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105"
+          />
         </div>
-    );
-}
+        
+        <div className="w-full md:w-1/2 text-center md:text-left md:pl-8">
+          <p className="text-lg mb-4">
+            At Chandhana Bros, we blend tradition with innovation to bring you exquisite fabrics and garments. 
+            Our commitment to excellence ensures premium quality materials crafted with precision and care. 
+            Experience elegance, comfort, and superior craftsmanship with every purchase.
+          </p>
+        </div>
+      </div>
+
+      {/* Company Values */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        <div className="p-6 bg-white shadow-md rounded-lg">
+          <FaBuilding className="text-purple-600 text-5xl mx-auto mb-4" />
+          <h2 className="text-xl font-semibold text-gray-800 mb-2">Our Legacy</h2>
+          <p className="text-gray-600">With a rich heritage in textiles, we have been serving customers with dedication and excellence.</p>
+        </div>
+        <div className="p-6 bg-white shadow-md rounded-lg">
+          <FaMapMarkerAlt className="text-red-500 text-5xl mx-auto mb-4" />
+          <h2 className="text-xl font-semibold text-gray-800 mb-2">Our Location</h2>
+          <p className="text-gray-600">Conveniently located in the heart of the city, making quality products accessible to all.</p>
+        </div>
+        <div className="p-6 bg-white shadow-md rounded-lg">
+          <FaRegHandshake className="text-green-500 text-5xl mx-auto mb-4" />
+          <h2 className="text-xl font-semibold text-gray-800 mb-2">Our Commitment</h2>
+          <p className="text-gray-600">We prioritize quality and customer satisfaction, ensuring a seamless shopping experience.</p>
+        </div>
+      </div>
+      
+      {/* Footer */}
+      <footer className="text-center mt-12 py-6 border-t">
+        <p className="text-gray-600">&copy; 2025 Chandhana Bros. All Rights Reserved.</p>
+        <p className="text-gray-500 text-sm">Licensed under Chandhana Bros License.</p>
+      </footer>
+    </div>
+  );
+};
 
 export default About;

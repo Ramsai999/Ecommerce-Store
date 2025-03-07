@@ -1,17 +1,18 @@
 import { Button, FormControl, InputLabel, MenuItem, Select, Tooltip } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { FiArrowDown, FiArrowUp, FiRefreshCw, FiSearch } from "react-icons/fi";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import React from "react";
+
 
 const Filter = ({ categories }) => {
-    const [searchParams] = useSearchParams();
-    const params = new URLSearchParams(searchParams);
-    const pathname = useLocation().pathname;
-    const navigate = useNavigate();
-    
+    const [searchParams, setSearchParams] = useSearchParams();
+    const { pathname } = useLocation();
+
     const [category, setCategory] = useState("all");
     const [sortOrder, setSortOrder] = useState("asc");
     const [searchTerm, setSearchTerm] = useState("");
+    const debounceRef = useRef(null);
 
     useEffect(() => {
         const currentCategory = searchParams.get("category") || "all";
@@ -23,45 +24,52 @@ const Filter = ({ categories }) => {
         setSearchTerm(currentSearchTerm);
     }, [searchParams]);
 
-    useEffect(() => { 
-        const handler = setTimeout(() => {
-            if (searchTerm) {
-                searchParams.set("keyword", searchTerm);
-            } else {
-                searchParams.delete("keyword");
-            }
-            navigate(`${pathname}?${searchParams.toString()}`);
-        }, 700);
-
-        return () => {
-            clearTimeout(handler);
-        };
-    }, [searchParams, searchTerm, navigate, pathname]);
-
-    const handleCategoryChange = (event) => {
-        const selectedCategory = event.target.value;
-
-        if (selectedCategory === "all") {
-            params.delete("category");
+    const updateSearchParams = (newParams) => {
+        if (debounceRef.current) clearTimeout(debounceRef.current);
+        debounceRef.current = setTimeout(() => {
+          setSearchParams(newParams, { replace: true });
+        }, 300); // Reduced debounce for responsiveness
+      };
+    
+      // Update URL when searchTerm changes
+      useEffect(() => {
+        const params = new URLSearchParams(searchParams);
+        if (searchTerm) {
+          params.set("keyword", searchTerm);
         } else {
-            params.set("category", selectedCategory);
+          params.delete("keyword");
         }
-        navigate(`${pathname}?${params}`);
-        setCategory(event.target.value);
-    };
-
-    const toggleSortOrder = () => {
+        updateSearchParams(params);
+      }, [searchTerm, searchParams]);
+    
+      const handleCategoryChange = (event) => {
+        const selectedCategory = event.target.value;
+        setCategory(selectedCategory);
+        const params = new URLSearchParams(searchParams);
+        if (selectedCategory === "all") {
+          params.delete("category");
+        } else {
+          params.set("category", selectedCategory);
+        }
+        updateSearchParams(params);
+      };
+    
+      const toggleSortOrder = () => {
         setSortOrder((prevOrder) => {
-            const newOrder = (prevOrder === "asc") ?  "desc" : "asc";
-            params.set("sortby", newOrder);
-            navigate(`${pathname}?${params}`);
-            return newOrder;
-        })
-    };
-
-    const handleClearFilters = () => {
-        navigate({ pathname : window.location.pathname });
-    };
+          const newOrder = prevOrder === "asc" ? "desc" : "asc";
+          const params = new URLSearchParams(searchParams);
+          params.set("sortby", newOrder);
+          updateSearchParams(params);
+          return newOrder;
+        });
+      };
+    
+      const handleClearFilters = () => {
+        setCategory("all");
+        setSortOrder("asc");
+        setSearchTerm("");
+        setSearchParams(new URLSearchParams());
+      };
 
     return (
         <div className="flex lg:flex-row flex-col-reverse lg:justify-between justify-center items-center gap-4">
