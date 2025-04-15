@@ -1,9 +1,10 @@
 package com.ecommerce.project.service;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -14,8 +15,8 @@ import java.util.UUID;
 public class FileServiceImplemnt implements FileService {
 
     @Override
-    public String uploadImage(String path, MultipartFile file) throws IOException {
-        String originalFilename = file.getOriginalFilename();
+    public String uploadImage(String path, File file) throws IOException {
+        String originalFilename = String.valueOf(file.getCanonicalFile());
 
         String randomId = UUID.randomUUID().toString();
         String fileName = randomId.concat(originalFilename.substring(originalFilename.lastIndexOf(".")));
@@ -25,7 +26,10 @@ public class FileServiceImplemnt implements FileService {
         }
 
         Path filePath = dirPath.resolve(fileName);
-        Files.copy(file.getInputStream(), filePath);
+        Files.copy(Path.of(file.getParent()), filePath);
         return fileName;
     }
+
+
 }
+

@@ -23,6 +23,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -84,7 +86,7 @@ public class ProductServiceImplemnt implements ProductService {
     }
 
     @Override
-    public ProductDTO updatedProductImage(Long productId, MultipartFile image) throws IOException {
+    public ProductDTO updatedProductImage(Long productId, File image) throws IOException {
         Product productFromDb = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product","productId",productId));
         String fileName = fileService.uploadImage(path, image);
         productFromDb.setImage(fileName);
@@ -215,22 +217,6 @@ public class ProductServiceImplemnt implements ProductService {
 
         Product savedProduct = productRepository.save(productFromDb);
 
-        List<Cart> carts = cartRepository.findCartsByProductId(productId);
-
-        List<CartDTO> cartDTOs = carts.stream().map(cart -> {
-            CartDTO cartDTO = modelMapper.map(cart, CartDTO.class);
-
-            List<ProductDTO> products = cart.getCartItems().stream()
-                    .map(p -> modelMapper.map(p.getProduct(), ProductDTO.class)).collect(Collectors.toList());
-
-            cartDTO.setProducts(products);
-
-            return cartDTO;
-
-        }).toList();
-
-        cartDTOs.forEach(cart -> cartService.updateProductInCarts(cart.getCartId(), productId));
-
         return modelMapper.map(savedProduct, ProductDTO.class);
     }
 
@@ -239,13 +225,26 @@ public class ProductServiceImplemnt implements ProductService {
         Product product = productRepository.findById(productId).
                 orElseThrow(() -> new ResourceNotFoundException("Product", "productId", productId));
 
-        List<Cart> carts = cartRepository.findCartsByProductId(productId);
-        carts.forEach(cart -> cartService.deleteProductFromCart(cart.getCartId(), productId));
+
 
         productRepository.delete(product);
         return modelMapper.map(product, ProductDTO.class);
     }
 
 
+    public CartService getCartService() {
+        return cartService;
+    }
 
+    public void setCartService(CartService cartService) {
+        this.cartService = cartService;
+    }
+
+    public CartRepository getCartRepository() {
+        return cartRepository;
+    }
+
+    public void setCartRepository(CartRepository cartRepository) {
+        this.cartRepository = cartRepository;
+    }
 }

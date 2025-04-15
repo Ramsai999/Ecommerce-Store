@@ -1,5 +1,6 @@
 package com.ecommerce.project.util;
 
+import com.ecommerce.project.exceptions.APIException;
 import com.ecommerce.project.model.User;
 import com.ecommerce.project.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,13 @@ public class AuthUtil {
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + authentication.getName()));
 
         return user;
+    }
+
+    public String loggedInUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication.getName() == null) {
+            throw new APIException("No authenticated user found");
+        }
+        return authentication.getName();
     }
 }

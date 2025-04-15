@@ -5,6 +5,7 @@ import com.ecommerce.project.exceptions.ResourceNotFoundException;
 import com.ecommerce.project.model.Cart;
 import com.ecommerce.project.model.CartItem;
 import com.ecommerce.project.model.Product;
+import com.ecommerce.project.model.User;
 import com.ecommerce.project.payload.CartDTO;
 import com.ecommerce.project.payload.CartItemDTO;
 import com.ecommerce.project.payload.ProductDTO;
@@ -141,7 +142,7 @@ import java.util.stream.Stream;
     @Override
     public CartDTO updateProductQuantityInCart(Long productId, Integer quantity) {
 
-        String emailId = authUtil.loggedInEmail();
+        String emailId = authUtil.loggedInEmail(); // Username from JWT
         Cart userCart = cartRepository.findCartByEmail(emailId);
         Long cartId  = userCart.getCartId();
 
@@ -267,8 +268,6 @@ import java.util.stream.Stream;
     @Override
     public String createOrUpdateCartWithItems(List<CartItemDTO> cartItems) {
         String emailId = authUtil.loggedInEmail();
-
-        // Check if an existing cart is available or create a new one
         Cart existingCart = cartRepository.findCartByEmail(emailId);
         if (existingCart == null) {
             existingCart = new Cart();
