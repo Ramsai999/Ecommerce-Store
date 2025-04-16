@@ -29,13 +29,10 @@ function App() {
           <Route path='/cart' element={<Cart/>}/>
 
           <Route
-          path="/checkout"
-          element={
-            <PrivateRoute publicPage={false}>
-              <Checkout />
-            </PrivateRoute>
-          }
-        />
+          path="/" element={ <PrivateRoute />}>
+            <Route path="/checkout" element={<Checkout />} />
+          </Route>
+        
 
           <Route path='/' element={<PrivateRoute publicPage />}>
             <Route path='/login' element={ <LogIn />}/>

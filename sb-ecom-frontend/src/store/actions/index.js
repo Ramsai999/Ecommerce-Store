@@ -37,7 +37,7 @@ export const fetchCategories = () => async (dispatch) => {
             totalPages: data.totalPages,
             lastPage: data.lastPage,
         });
-        dispatch({ type: "IS_ERROR" });
+        dispatch({ type: "CATEGORY_SUCCESS" });
     } catch (error) {
         console.log(error);
         dispatch({
@@ -138,6 +138,7 @@ export const registerNewUser
         try {
             setLoader(true);
             const { data } = await api.post("/auth/signup", sendData);
+            localStorage.setItem("auth",JSON.stringify(data));
             reset();
             toast.success(data?.message || "User Registered Successfully");
             navigate("/login");
@@ -241,7 +242,7 @@ export const addPaymentMethod = (method) => {
 export const createUserCart = (sendCartItems) => async (dispatch, getState) => {
     try {
         dispatch({ type: "IS_FETCHING" });
-        await api.post('/cart/create', sendCartItems);
+        await api.post('/cart/create', sendCartItems, {withCredentials : true, });
         await dispatch(getUserCart());
     } catch (error) {
         console.log(error);
@@ -256,7 +257,7 @@ export const createUserCart = (sendCartItems) => async (dispatch, getState) => {
 export const getUserCart = () => async (dispatch, getState) => {
     try {
         dispatch({ type: "IS_FETCHING" });
-        const { data } = await api.get('/carts/users/cart');
+        const { data } = await api.get('/carts/users/cart', {withCredentials : true, });
         
         dispatch({
             type: "GET_USER_CART_PRODUCTS",

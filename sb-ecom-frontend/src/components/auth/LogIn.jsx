@@ -24,6 +24,8 @@ const LogIn = () => {
     });
 
     const loginHandler = async (data) => {
+        console.log("login Clicked");
+        setLoader(true);
         dispatch(authenticateSignInUser(data, toast, reset, navigate, setLoader));
     };
 
