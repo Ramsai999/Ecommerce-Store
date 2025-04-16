@@ -10,7 +10,7 @@ const About = () => {
       <div className="flex flex-col lg:flex-row justify-between items-center mb-12 gap-x-12">
         <div className="w-full md:w-1/2 mb-6 md:mb-0 md:mr-8">
           <img
-            src="https://embarkx.com/sample/placeholder.png"
+            src="https://imgs.search.brave.com/ciGatNtRvVrkfbS7cbNJNP4RusUUBcLWTeg4_dQBQ2g/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA2LzYxLzc5LzM2/LzM2MF9GXzY2MTc5/MzY3N19QUmR6Sjhl/WlRuQ3FsWThWdkhw/NmhqUjFZdmxmT1Fh/eS5qcGc"
             alt="Company Building"
             className="w-full h-auto rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105"
           />

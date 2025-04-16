@@ -63,6 +63,7 @@ const Cart = () => {
                     {/* Checkout Button */}
                     <Link className="w-full flex justify-end" to="/checkout">
                         <button
+                            onClick={() => {}}
                             className="w-[300px] py-3 px-5 rounded-lg bg-blue-600 text-white text-lg font-semibold flex items-center justify-center gap-2 hover:bg-blue-700 transition-all duration-300">
                             <MdShoppingCart size={22} />
                             Checkout

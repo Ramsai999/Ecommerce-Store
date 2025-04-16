@@ -86,7 +86,7 @@ public class ProductServiceImplemnt implements ProductService {
     }
 
     @Override
-    public ProductDTO updatedProductImage(Long productId, File image) throws IOException {
+    public ProductDTO updatedProductImage(Long productId, MultipartFile image) throws IOException {
         Product productFromDb = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product","productId",productId));
         String fileName = fileService.uploadImage(path, image);
         productFromDb.setImage(fileName);

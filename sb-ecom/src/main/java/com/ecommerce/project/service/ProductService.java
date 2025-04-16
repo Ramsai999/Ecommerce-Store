@@ -24,5 +24,5 @@ public interface ProductService {
     ProductDTO addProduct(long categoryId, ProductDTO productDTO);
 
 
-    ProductDTO updatedProductImage(Long productId, File image) throws IOException;
+    ProductDTO updatedProductImage(Long productId, MultipartFile image) throws IOException;
 }

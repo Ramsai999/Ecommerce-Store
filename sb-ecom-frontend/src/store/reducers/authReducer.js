@@ -8,7 +8,15 @@ const initialState = {
 export const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case "LOGIN_USER":
-            return { ...state, user: action.payload };
+      console.log("Setting user in state:", action.payload);
+      const token = action.payload.token || action.payload.accessToken || null; // Adjust based on actual field name
+      return {
+        ...state,
+        user: {
+          ...action.payload,
+          jwtToken: token,
+        },
+      };
         case "USER_ADDRESS":
             return { ...state, address: action.payload };
         case "SELECT_CHECKOUT_ADDRESS":
